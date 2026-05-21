@@ -1,9 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
 *, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: 0;
 }
 
-body {
-    background-color: antiquewhite;
+
+:root {
+    --neutral-950: #000000;
+    --neutral-0: #ffffff;
+    --slate-900: #1A2A33;
+    --slate-850: #21313B;
+    --slate-800: #1F3641;
+    --slate-300: #A8BFC9;
+    --slate-100: #DBE8ED;
+    --amber-400: #F2B137;
+    --amber-300: #FFC860;
+    --teal-400: #31C3BD;
+    --teal-300: #65E9E4;
+
+    --s-0: 0;
+    --s-100: calc(8 /16 * 1rem);
+    --s-150: calc(12 /16 * 1rem);
+    --s-200: calc(16 /16 * 1rem);
+    --s-250: calc(20 /16 * 1rem);
+    --s-300: calc(24 /16 * 1rem);
+    --s-375: calc(30 /16 * 1rem);
+    --s-400: calc(32 /16 * 1rem);
+    --s-500: calc(40 /16 * 1rem);
+    --s-600: calc(48 /16 * 1rem);
+    --s-700: calc(56 /16 * 1rem);
+
+    --radius-0: 0;
+    --radius-4: calc(4 /16 * 1rem);
+    --radius-6: calc(6 /16 * 1rem);
+    --radius-10: calc(10 /16 * 1rem);
+    --radius-16: calc(16 /16 * 1rem);
+
+    --font-xxl: calc(40 /16 * 1rem);
+    --font-xl: calc(24 /16 * 1rem);
+    --font-lg: calc(20 /16 * 1rem);
+    --font-md: calc(16 /16 * 1rem);
+    --font-sm: calc(14 /16 * 1rem);
+    --font-xs: calc(12 /16 * 1rem);
+
+    --line-height-xl: 1.30;
+    --line-height-lg: 1.25;
+
+    --letter-spacing-xxl: calc(2.5 /16 * 1rem);
+    --letter-spacing-xl: calc(1.5 /16 * 1rem);
+    --letter-spacing-lg: calc(1.25 /16 * 1rem);
+    --letter-spacing-md: calc(1 /16 * 1rem);
+    --letter-spacing-sm: calc(0.9 /16 * 1rem);
+    --letter-spacing-xs: calc(0.75 /16 * 1rem);
+
+    --bold: 700;
+    --medium: 500;
+    --regular: 400;
+
+
+
+
+}
+
+.text-preset-1 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: var(--bold);
+    font-size: var(--font-xxl);
+    line-height: var(--line-height-xl);
+    letter-spacing: var(--letter-spacing-xxl);
+}
+
+.text-preset-2 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: var(--bold);
+    font-size: var(--font-xl);
+    line-height: var(--line-height-lg);
+    letter-spacing: var(--letter-spacing-lg);
+}
+
+.text-preset-3 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: var(--bold);
+    font-size: var(--font-lg);
+    line-height: var(--line-height-lg);
+    letter-spacing: var(--letter-spacing-lg);
+}
+
+.text-preset-4 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: var(--bold);
+    font-size: var(--font-md);
+    line-height: var(--line-height-lg);
+    letter-spacing: var(--letter-spacing-lg);
+}
+
+.text-preset-5 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: var(--medium);
+    font-size: var(--font-sm);
+    line-height: var(--line-height-xl);
+    letter-spacing: var(--letter-spacing-sm);
+}
+
+.text-preset-5-bold {
+    font-family: 'Outfit', sans-serif;
+    font-weight: var(--bold);
+    font-size: var(--font-xs);
+    line-height: var(--line-height-xl);
+    letter-spacing: var(--letter-spacing-xs);
+}
+
+.text-preset-6 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: var(--medium);
+    font-size: var(--font-xs);
+    line-height: var(--line-height-lg);
+    letter-spacing: var(--letter-spacing-xs);
 }
