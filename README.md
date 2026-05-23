@@ -36,3 +36,5 @@
             - Yes, Restart
 
 
+## Architecture
+- Use **universal reactivity** to share screen global state in order to conditionally render the different screen states of the game.
