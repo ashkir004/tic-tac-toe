@@ -215,6 +215,14 @@ header {
     height: var(--s-500);
 }
 
+[data-winner=true] > svg.mark-x > path {
+    fill: var(--slate-900);
+}
+
+[data-winner=true] > svg.mark-o > path {
+    fill: var(--slate-900);
+}
+
 @media (min-width: 48rem) {
 
     .cell .mark-x, .cell .mark-o {

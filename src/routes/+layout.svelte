@@ -10,3 +10,13 @@
 </svelte:head>
 
 {@render children()}
+
+<style>
+
+:global([data-cellvalue=true] > svg.mark-x > path) {
+    fill: var(--slate-900);
+}
+
+
+
+</style>
