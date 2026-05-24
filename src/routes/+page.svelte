@@ -45,6 +45,7 @@
 </main>
 
 <style>
+
     .hide {
         display: none;
     }
