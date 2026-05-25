@@ -1,26 +1,44 @@
 <script lang="ts">
-    import { screen, reset, turn, setTurn, setScreen, winner, setWinner } from '$lib/shared.svelte';
-    import { checkWin } from '$lib/tic-tac-toe';
+    import { screen, setScreen } from '$lib/shared.svelte';
+    import { checkWin, checkDraw } from '$lib/tic-tac-toe';
+
+    let { updateScore, resetScore, turn, setTurn } = $props();
+
+    let winner: { value: string | null } = $state({ value: null });
+    function setWinner(value: string | null) {
+         winner.value = value;
+    }
+
+    function resetBoard() {
+        for (const cellId in gameState) {
+            gameState[cellId].value = '';
+            const cellButton = document.getElementById(cellId) as HTMLButtonElement;
+            if (cellButton) {
+                cellButton.innerHTML = '';
+            }
+
+        }
+        setWinner(null);
+    }
 
     $effect(() => {
 
-        const wonBy = checkWin(Object.values(gameState).map(cell => cell.value));
-        if (wonBy) {
-            setWinner(wonBy);
-            console.log(`${winner.value} wins!`);
-        } else if (Object.values(gameState).every(cell => cell.value !== '')) {
-            console.log("It's a draw!");
+        if (winner.value !== null) return;
+
+        const isDraw = checkDraw(Object.values(gameState).map(cell => cell.value));
+        if (isDraw) {
+            setWinner('draw');
+            updateScore('draw');
+            return;
+        }
+        
+        const currentWinner = checkWin(Object.values(gameState).map(cell => cell.value));
+        if (currentWinner) {
+            setWinner(currentWinner);
+            updateScore(currentWinner);
+            return;
         }
 
-        if (reset.value) {
-            for (const cellId in gameState) {
-                gameState[cellId].value = '';
-                const cellButton = document.getElementById(cellId) as HTMLButtonElement;
-                if (cellButton) {
-                    cellButton.innerHTML = '';
-                }
-            }
-        }
     });
 
     const gameState: { [key: string]: { index: number; value: string } } = $state({
@@ -43,15 +61,15 @@
             return;
         }
 
-        if (turn.value === 'X') {
+        if (turn === 'X') {
             target.innerHTML = `<svg class="mark-x" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M15.002 1.147 32 18.145 48.998 1.147a3 3 0 0 1 4.243 0l9.612 9.612a3 3 0 0 1 0 4.243L45.855 32l16.998 16.998a3 3 0 0 1 0 4.243l-9.612 9.612a3 3 0 0 1-4.243 0L32 45.855 15.002 62.853a3 3 0 0 1-4.243 0L1.147 53.24a3 3 0 0 1 0-4.243L18.145 32 1.147 15.002a3 3 0 0 1 0-4.243l9.612-9.612a3 3 0 0 1 4.243 0Z" fill="#31C3BD" fill-rule="evenodd"/></svg>`;
-        } else if (turn.value === 'O') {
+        } else if (turn === 'O') {
             target.innerHTML = `<svg class="mark-o" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32C0,14.327,14.327,0,32,0Zm0,18.963c-7.2,0-13.037,5.837-13.037,13.037c0,7.2,5.837,13.037,13.037,13.037c7.2,0,13.037-5.837,13.037-13.037C45.037,24.8,39.2,18.963,32,18.963Z" fill="#F2B137"/></svg>`;
         }
         
 
-        gameState[cellId].value = turn.value;
-        setTurn(turn.value === 'X' ? 'O' : 'X');
+        gameState[cellId].value = turn;
+        setTurn(turn === 'X' ? 'O' : 'X');
     }
 
 </script>
@@ -62,26 +80,42 @@
             <button class="cell {winner.value ? 'winner-' + winner.value : ''}" id={cellId} data-cell={cellData.index} data-winner={cellData.value === winner.value} aria-label={cellId} onclick={handleClick}></button>
         {/each}
     </div>
-    {#if winner.value === 'X' || winner.value === 'O'}
+
     <div class="overlay {winner.value === null ? 'hide' : ''}">
-        <h1 class="overlay__title text-preset-5-bold">You Won!</h1>
-        <div class="overlay__content">
-                <p class="overlay__message text-preset-2 {winner.value === 'X' ? 'winner' + winner.value : ''}">
-                {#if winner.value === 'X'}
+    
+        <h1 class="overaly__title text-preset-5-bold">
+            {winner.value === 'X' ? 'You Won!' : winner.value === 'O' ? 'Oh No, You Lost...' : ''}
+        </h1>
+
+        <div class="overlay__content"> 
+            {#if winner.value === 'X'}
+                <p class="overlay__message text-preset-2 {winner.value === 'X' ? 'winner-' + winner.value : ''}">
                     <svg class="mark-x" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M15.002 1.147 32 18.145 48.998 1.147a3 3 0 0 1 4.243 0l9.612 9.612a3 3 0 0 1 0 4.243L45.855 32l16.998 16.998a3 3 0 0 1 0 4.243l-9.612 9.612a3 3 0 0 1-4.243 0L32 45.855 15.002 62.853a3 3 0 0 1-4.243 0L1.147 53.24a3 3 0 0 1 0-4.243L18.145 32 1.147 15.002a3 3 0 0 1 0-4.243l9.612-9.612a3 3 0 0 1 4.243 0Z" fill="#31C3BD" fill-rule="evenodd"/></svg>
-                {:else}
-                    <svg class="mark-o" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32C0,14.327,14.327,0,32,0Zm0,18.963c-7.2,0-13.037,5.837-13.037,13.037c0,7.2,5.837,13.037,13.037,13.037c7.2,0,13.037-5.837,13.037-13.037C45.037,24.8,39.2,18.963,32,18.963Z" fill="#F2B137"/></svg>
-                {/if}
                     takes the round</p>
+                {:else if winner.value === 'O'}
+                <p class="overlay__message text-preset-2 {winner.value === 'O' ? 'winner-' + winner.value : ''}">
+                    <svg class="mark-o" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32C0,14.327,14.327,0,32,0Zm0,18.963c-7.2,0-13.037,5.837-13.037,13.037c0,7.2,5.837,13.037,13.037,13.037c7.2,0,13.037-5.837,13.037-13.037C45.037,24.8,39.2,18.963,32,18.963Z" fill="#F2B137"/></svg>
+                    takes the round</p>
+                {:else if winner.value === 'draw'}
+                <p class="overlay__message text-preset-2">Round Tied</p>
+                {/if}
             <div class="overlay__controls">
                 <button
-                    onclick={() => setScreen('menu')}
+                    onclick={() => {
+                        resetScore();
+                        resetBoard();
+                        setScreen('menu');
+                    }}
                     class="quit text-preset-4">Quit</button>
-                <button class="next-round text-preset-4">Next Round</button>
+                <button 
+                    onclick={() => {
+                        resetBoard();
+                        setScreen('play');
+                    }}
+                    class="next-round text-preset-4">Next Round</button>
             </div>
         </div>
     </div>
-    {/if}
 </section>
 
 <style>
@@ -152,6 +186,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: center;
         gap: var(--s-100);
     }
 

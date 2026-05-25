@@ -21,3 +21,7 @@ export function checkWin(board: string[]): string | null {
 
     return null; // No winner
 }
+
+export function checkDraw(board: string[]): boolean {
+    return board.every(cell => cell !== '');
+}
