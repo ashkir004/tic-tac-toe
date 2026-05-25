@@ -2,7 +2,20 @@
     import { screen, setScreen } from '$lib/shared.svelte';
     import { checkWin, checkDraw } from '$lib/tic-tac-toe';
 
-    let { updateScore, resetScore, turn, setTurn } = $props();
+    let { updateScore, resetScore, turn, setTurn, reset, setReset } = $props();
+    let resetGame = $derived(reset);
+
+    let gameState: { [key: string]: { index: number; value: string } } = $state({
+        'cell-1': { index: 1, value: '' },
+        'cell-2': { index: 2, value: '' },
+        'cell-3': { index: 3, value: '' },
+        'cell-4': { index: 4, value: '' },
+        'cell-5': { index: 5, value: '' },
+        'cell-6': { index: 6, value: '' },
+        'cell-7': { index: 7, value: '' },
+        'cell-8': { index: 8, value: '' },
+        'cell-9': { index: 9, value: '' }
+    })
 
     let winner: { value: string | null } = $state({ value: null });
     function setWinner(value: string | null) {
@@ -23,15 +36,14 @@
 
     $effect(() => {
 
-        if (winner.value !== null) return;
-
-        const isDraw = checkDraw(Object.values(gameState).map(cell => cell.value));
-        if (isDraw) {
-            setWinner('draw');
-            updateScore('draw');
+        if (resetGame) {
+            resetBoard();
+            setReset(false);
             return;
         }
-        
+
+        if (winner.value !== null) return;
+
         const currentWinner = checkWin(Object.values(gameState).map(cell => cell.value));
         if (currentWinner) {
             setWinner(currentWinner);
@@ -39,19 +51,15 @@
             return;
         }
 
+        const isDraw = checkDraw(Object.values(gameState).map(cell => cell.value));
+        if (isDraw) {
+            setWinner('draw');
+            updateScore('draw');
+            return;
+        }
+
     });
 
-    const gameState: { [key: string]: { index: number; value: string } } = $state({
-        'cell-1': { index: 1, value: '' },
-        'cell-2': { index: 2, value: '' },
-        'cell-3': { index: 3, value: '' },
-        'cell-4': { index: 4, value: '' },
-        'cell-5': { index: 5, value: '' },
-        'cell-6': { index: 6, value: '' },
-        'cell-7': { index: 7, value: '' },
-        'cell-8': { index: 8, value: '' },
-        'cell-9': { index: 9, value: '' }
-    })
 
     function handleClick(event: MouseEvent) {
         const target = event.target as HTMLButtonElement;
@@ -67,8 +75,7 @@
             target.innerHTML = `<svg class="mark-o" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32C0,14.327,14.327,0,32,0Zm0,18.963c-7.2,0-13.037,5.837-13.037,13.037c0,7.2,5.837,13.037,13.037,13.037c7.2,0,13.037-5.837,13.037-13.037C45.037,24.8,39.2,18.963,32,18.963Z" fill="#F2B137"/></svg>`;
         }
         
-
-        gameState[cellId].value = turn;
+        gameState = { ...gameState, [cellId]: { ...gameState[cellId], value: turn } };
         setTurn(turn === 'X' ? 'O' : 'X');
     }
 
@@ -82,7 +89,7 @@
     </div>
 
     <div class="overlay {winner.value === null ? 'hide' : ''}">
-    
+
         <h1 class="overaly__title text-preset-5-bold">
             {winner.value === 'X' ? 'You Won!' : winner.value === 'O' ? 'Oh No, You Lost...' : ''}
         </h1>

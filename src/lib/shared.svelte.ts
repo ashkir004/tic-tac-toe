@@ -8,16 +8,16 @@ export function setScreen(newScreen: string) {
     // resetGame();
 }
 
-export const reset = $state({ value: false });
+// export const reset = $state({ value: false });
 
-export function resetGame() {
-    reset.value = true;
-    // setTurn('X');
-    // setWinner(null);
-    setTimeout(() => {
-        reset.value = false;
-    }, 0);
-}
+// export function resetGame() {
+//     reset.value = true;
+//     // setTurn('X');
+//     // setWinner(null);
+//     setTimeout(() => {
+//         reset.value = false;
+//     }, 0);
+// }
 
 export const rounds = $state({ value: 1 });
 
