@@ -36,8 +36,6 @@
 
 <style>
 
-/* NEW GAME */
-
 .new-game {
     display: flex;
     flex-direction: column;

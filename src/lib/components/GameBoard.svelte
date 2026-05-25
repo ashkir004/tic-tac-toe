@@ -2,7 +2,7 @@
     import { screen, setScreen } from '$lib/shared.svelte';
     import { checkWin, checkDraw } from '$lib/tic-tac-toe';
 
-    let { updateScore, resetScore, turn, setTurn, reset, setReset } = $props();
+    let { updateScore, resetScore, turn, setTurn, reset, setReset, player1 } = $props();
     let resetGame = $derived(reset);
 
     let gameState: { [key: string]: { index: number; value: string } } = $state({
@@ -19,7 +19,7 @@
 
     let winner: { value: string | null } = $state({ value: null });
     function setWinner(value: string | null) {
-         winner.value = value;
+        winner.value = value;
     }
 
     function resetBoard() {
@@ -91,7 +91,7 @@
     <div class="overlay {winner.value === null ? 'hide' : ''}">
 
         <h1 class="overaly__title text-preset-5-bold">
-            {winner.value === 'X' ? 'You Won!' : winner.value === 'O' ? 'Oh No, You Lost...' : ''}
+            { winner.value === player1.mark ? 'You Won!' : winner.value === 'draw' ? '' : 'Oh No, You Lost...' }
         </h1>
 
         <div class="overlay__content"> 
@@ -104,7 +104,7 @@
                     <svg class="mark-o" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32C0,14.327,14.327,0,32,0Zm0,18.963c-7.2,0-13.037,5.837-13.037,13.037c0,7.2,5.837,13.037,13.037,13.037c7.2,0,13.037-5.837,13.037-13.037C45.037,24.8,39.2,18.963,32,18.963Z" fill="#F2B137"/></svg>
                     takes the round</p>
                 {:else if winner.value === 'draw'}
-                <p class="overlay__message text-preset-2">Round Tied</p>
+                    <p class="overlay__message text-preset-2">Round Tied</p>
                 {/if}
             <div class="overlay__controls">
                 <button
@@ -117,6 +117,7 @@
                 <button 
                     onclick={() => {
                         resetBoard();
+                        setTurn('X');
                         setScreen('play');
                     }}
                     class="next-round text-preset-4">Next Round</button>
