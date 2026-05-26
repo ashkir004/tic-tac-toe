@@ -84,7 +84,13 @@
 <section class="game-board__container {screen.value !== 'play' ? 'hide' : ''}">
     <div class="game-board">
         {#each Object.entries(gameState) as [cellId, cellData] (cellId)}
-            <button class="cell {winner.value ? 'winner-' + winner.value : ''}" id={cellId} data-cell={cellData.index} data-winner={cellData.value === winner.value} aria-label={cellId} onclick={handleClick}></button>
+            <button class="cell {turn === 'X' ? 'X-turn' : 'O-turn'} {'winner-' + cellData.value}" 
+                    id={cellId} 
+                    data-cell={cellData.index}
+                    data-selected={cellData.value !== ''} 
+                    data-winner={cellData.value === winner.value} 
+                    aria-label={cellId} onclick={handleClick}>
+            </button>
         {/each}
     </div>
 

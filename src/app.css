@@ -150,9 +150,7 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* width: 100%; */
     gap: var(--s-800);
-    /* border: .4rem solid yellow; */
 }
 
 .logo {
@@ -213,6 +211,18 @@ header {
 .cell .mark-x, .cell .mark-o {
     width: var(--s-500);
     height: var(--s-500);
+}
+
+[data-selected=false].X-turn:hover {
+    background: url('$lib/assets/icon-x-outline.svg') center center no-repeat;
+    background-color: var(--slate-800);
+    background-size: var(--s-600) var(--s-600);
+}
+
+[data-selected=false].O-turn:hover {
+    background: url('$lib/assets/icon-o-outline.svg') center center no-repeat;
+    background-color: var(--slate-800);
+    background-size: var(--s-600) var(--s-600);
 }
 
 [data-winner=true] > svg.mark-x > path {
