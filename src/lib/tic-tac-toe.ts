@@ -1,5 +1,5 @@
 
-export function checkWin(board: string[]): string | null {
+export function checkWin(board: string[]): { mark: string | null, cells: number[] } {
     
     const winConditions = [
         [0, 1, 2], // Row 1
@@ -15,11 +15,12 @@ export function checkWin(board: string[]): string | null {
     for (const condition of winConditions) {
         const [a, b, c] = condition;
         if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-            return board[a]; // We have a winner!
+            // return board[a];
+            return { mark: board[a], cells: condition};
         }
     }
 
-    return null; // No winner
+    return { mark: null, cells: [] }; // No winner
 }
 
 export function checkDraw(board: string[]): boolean {

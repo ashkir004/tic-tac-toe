@@ -106,11 +106,11 @@
         gap: var(--s-100);
     }
 
-    .overlay__message.winner-X {
+    .overlay__message svg.mark-x {
         color: var(--teal-400);
     }
 
-    .overlay__message.winner-O {
+    .overlay__message svg.mark-o {
         color: var(--amber-400);
     }
 

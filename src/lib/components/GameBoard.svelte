@@ -6,20 +6,21 @@
     let { updateScore, resetScore, turn, setTurn, reset, setReset, player1 } = $props();
 
     let gameState: { [key: string]: { index: number; value: string } } = $state({
-        'cell-1': { index: 1, value: '' },
-        'cell-2': { index: 2, value: '' },
-        'cell-3': { index: 3, value: '' },
-        'cell-4': { index: 4, value: '' },
-        'cell-5': { index: 5, value: '' },
-        'cell-6': { index: 6, value: '' },
-        'cell-7': { index: 7, value: '' },
-        'cell-8': { index: 8, value: '' },
-        'cell-9': { index: 9, value: '' }
+        'cell-1': { index: 0, value: '' },
+        'cell-2': { index: 1, value: '' },
+        'cell-3': { index: 2, value: '' },
+        'cell-4': { index: 3, value: '' },
+        'cell-5': { index: 4, value: '' },
+        'cell-6': { index: 5, value: '' },
+        'cell-7': { index: 6, value: '' },
+        'cell-8': { index: 7, value: '' },
+        'cell-9': { index: 8, value: '' }
     })
 
-    let winner: { value: string | null } = $state({ value: null });
-    function setWinner(value: string | null) {
+    let winner: { value: string | null; cells: number[] } = $state({ value: null, cells: [] });
+    function setWinner(value: string | null, cells: number[] = []) {
         winner.value = value;
+        winner.cells = cells;
     }
 
     function restartGame() {
@@ -48,16 +49,16 @@
 
         if (winner.value !== null) return;
 
-        const currentWinner = checkWin(Object.values(gameState).map(cell => cell.value));
-        if (currentWinner) {
-            setWinner(currentWinner);
-            updateScore(currentWinner);
+        let { mark, cells } = checkWin(Object.values(gameState).map(cell => cell.value));
+        if (mark) {
+            setWinner(mark, cells);
+            updateScore(mark);
             return;
         }
 
         const isDraw = checkDraw(Object.values(gameState).map(cell => cell.value));
         if (isDraw) {
-            setWinner('draw');
+            setWinner('draw', []);
             updateScore('draw');
             return;
         }
@@ -88,7 +89,7 @@
 <section class="game-board__container {screen.value !== 'play' ? 'hide' : ''}">
     <div class="game-board">
         {#each Object.entries(gameState) as [cellId, cellData] (cellId)}
-            <button class="cell {turn === 'X' ? 'X-turn' : 'O-turn'} {'winner-' + cellData.value}" 
+            <button class="cell {turn === 'X' ? 'X-turn' : 'O-turn'} {winner.cells.includes(cellData.index) ? 'winner-' + cellData.value : ''}" 
                     id={cellId} 
                     data-cell={cellData.index}
                     data-selected={cellData.value !== ''} 
@@ -144,11 +145,11 @@
         border-radius: var(--radius-10);
     }
 
-    .winner-X[data-winner=true] {
+    .winner-X {
         background-color: var(--teal-400);
     }
 
-    .winner-O[data-winner=true] {
+    .winner-O {
         background-color: var(--amber-400);
     }
 
