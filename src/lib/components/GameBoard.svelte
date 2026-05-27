@@ -1,9 +1,9 @@
 <script lang="ts">
     import { screen, setScreen } from '$lib/shared.svelte';
-    import { checkWin, checkDraw } from '$lib/tic-tac-toe';
+    import { checkWin, checkDraw, cpuMove } from '$lib/tic-tac-toe';
 	import Overlay from './Overlay.svelte';
 
-    let { updateScore, resetScore, turn, setTurn, reset, setReset, player1 } = $props();
+    let { updateScore, resetScore, turn, setTurn, reset, setReset, player1, player2 } = $props();
 
     let gameState: { [key: string]: { index: number; value: string } } = $state({
         'cell-1': { index: 0, value: '' },
@@ -40,14 +40,20 @@
     }
 
     $effect(() => {
-
-        // if (resetGame) {
-        //     resetBoard();
-        //     setReset(false);
-        //     return;
-        // }
-
         if (winner.value !== null) return;
+
+        if (turn === player2.mark && player2.cpu) {
+            const move = cpuMove(Object.values(gameState).map(cell => cell.value), player2.mark, player1.mark);
+            if (move !== null) {
+                setTimeout(() => {
+                    const cellId = `cell-${move + 1}`;
+                    const cellButton = document.getElementById(cellId) as HTMLButtonElement;
+                    if (cellButton) {
+                        cellButton.click();
+                    }
+                }, 500);
+            }
+        }
 
         let { mark, cells } = checkWin(Object.values(gameState).map(cell => cell.value));
         if (mark) {

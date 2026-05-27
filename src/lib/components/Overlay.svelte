@@ -32,6 +32,7 @@
                 }}>No, Cancel</button>
                 <button class="next-round text-preset-4" onclick={() => {
                     restart = false;
+                    setTurn('X');
                     setReset(false);
                     restartGame();
                 }}>Yes, Restart</button>

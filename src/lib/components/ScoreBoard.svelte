@@ -1,15 +1,50 @@
 <script lang="ts">
     import { screen } from '$lib/shared.svelte';
 
-    let { score } = $props();
+    let { score, player1, player2 } = $props();
+
+
+    function getPlayerLabel(player: { mark: string; cpu: boolean }) {
+        let a, b;
+
+        if (!player1.cpu && !player2.cpu) {
+            a = player1.mark === 'X' ? 'P1' : 'P2';
+            b = player2.mark === 'X' ? 'P1' : 'P2';
+            return player.mark === 'X' ? a : b;
+        }
+
+        if (player1.mark === 'X') {
+            if (player1.cpu) {
+                a = 'CPU';
+                b = 'You';
+            } else {
+                a = 'You';
+                b = 'CPU';
+            }
+        } 
+        else {
+            if (player2.cpu) {
+                a = 'You';
+                b = 'CPU';
+            } else {
+                a = 'CPU';
+                b = 'You';
+            }
+        }
+        
+        return player.mark === 'X' ? a : b;
+    }
+
 
 </script>
 
 
+
+
 <section class="scoreboard {screen.value !== 'play' ? 'hide' : ''}">
-    <div class="player-score p1 text-preset-6">X(P1)<p class="text-preset-3">{score.player1}</p></div>
+    <div class="player-score p1 text-preset-6">X({getPlayerLabel(player1)})<p class="text-preset-3">{player1.mark === 'X' ? score.player1 : score.player2}</p></div>
     <div class="tie-score text-preset-6">Ties<p class="text-preset-3">{score.draw}</p></div>
-    <div class="player-score p2 text-preset-6">O(P2)<p class="text-preset-3">{score.player2}</p></div>
+    <div class="player-score p2 text-preset-6">O({getPlayerLabel(player2)})<p class="text-preset-3">{player2.mark === 'X' ? score.player1 : score.player2}</p></div>
 </section>
 
 <style>

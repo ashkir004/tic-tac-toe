@@ -26,3 +26,55 @@ export function checkWin(board: string[]): { mark: string | null, cells: number[
 export function checkDraw(board: string[]): boolean {
     return board.every(cell => cell !== '');
 }
+
+// a cpu player that makes random moves
+// export function cpuMove(board: string[]): number {
+//     const emptyCells = board
+//         .map((cell, index) => cell === '' ? index : null)
+//         .filter(index => index !== null) as number[];
+
+//     if (emptyCells.length === 0) {
+//         return -1; // No moves left
+//     }
+
+//     const randomIndex = Math.floor(Math.random() * emptyCells.length);
+//     return emptyCells[randomIndex];
+// }
+
+// update the cpuMove function to make a winning move if available, otherwise block the opponent's winning move, and if neither is available, make a random move
+export function cpuMove(board: string[], cpuMark: string, playerMark: string): number {
+    // Check for winning move
+    for (let i = 0; i < board.length; i++) {
+        if (board[i] === '') {
+            board[i] = cpuMark; // Temporarily make the move
+            if (checkWin(board).mark === cpuMark) {
+                return i; // Winning move found
+            }
+            board[i] = ''; // Undo the move
+        }
+    }
+
+    // Check for blocking move
+    for (let i = 0; i < board.length; i++) {
+        if (board[i] === '') {
+            board[i] = playerMark; // Temporarily make the opponent's move
+            if (checkWin(board).mark === playerMark) {
+                board[i] = ''; // Undo the move
+                return i; // Blocking move found
+            }
+            board[i] = ''; // Undo the move
+        }
+    }
+
+    // No winning or blocking move found, make a random move
+    const emptyCells = board
+        .map((cell, index) => cell === '' ? index : null)
+        .filter(index => index !== null) as number[];
+
+    if (emptyCells.length === 0) {
+        return -1; // No moves left
+    }
+
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    return emptyCells[randomIndex];
+}

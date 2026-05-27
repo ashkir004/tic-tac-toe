@@ -1,7 +1,7 @@
 <script>
     
     import { screen, setScreen } from '$lib/shared.svelte';
-    let { setPlayer1Mark, player1 } = $props();
+    let { setPlayer1Mark, player1, setCPU } = $props();
 </script>
 
 
@@ -26,10 +26,16 @@
     </div>
     <section class="new-game__controls">
         <button 
-            onclick={() => setScreen('play')}   
+            onclick={() => { 
+                setCPU(true);
+                setScreen('play');
+            }}   
             class="btn new-game__control vs-cpu text-preset-4">New Game (vs CPU)</button>
         <button 
-            onclick={() => setScreen('play')}   
+            onclick={() => { 
+                setCPU(false);
+                setScreen('play');
+            }}   
             class="btn new-game__control vs-player text-preset-4">New Game (vs Player)</button>
     </section>
 </section>
