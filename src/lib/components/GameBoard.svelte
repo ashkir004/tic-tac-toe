@@ -6,7 +6,10 @@
 
     let { updateScore, resetScore, turn, setTurn, reset, setReset, player1, player2 } = $props();
 
-    let gameState: { [key: string]: { index: number; value: string } } = $state({
+    type Mark = 'X' | 'O';
+    type CellValue = '' | Mark;
+
+    let gameState: { [key: string]: { index: number; value: CellValue } } = $state({
         'cell-1': { index: 0, value: '' },
         'cell-2': { index: 1, value: '' },
         'cell-3': { index: 2, value: '' },
@@ -19,9 +22,35 @@
     })
 
     let winner: { value: string | null; cells: number[] } = $state({ value: null, cells: [] });
+    let cpuTimeout: ReturnType<typeof setTimeout> | null = null;
+
     function setWinner(value: string | null, cells: number[] = []) {
         winner.value = value;
         winner.cells = cells;
+    }
+
+    function clearCpuTimeout() {
+        if (cpuTimeout) {
+            clearTimeout(cpuTimeout);
+            cpuTimeout = null;
+        }
+    }
+
+    function setCell(cellIndex: number, value: Mark) {
+        if (winner.value !== null || turn !== value) {
+            return false;
+        }
+
+        const cellId = `cell-${cellIndex + 1}`;
+        const cell = gameState[cellId];
+
+        if (!cell || cell.value !== '') {
+            return false;
+        }
+
+        gameState = { ...gameState, [cellId]: { ...cell, value } };
+        setTurn(value === 'X' ? 'O' : 'X');
+        return true;
     }
 
     function restartGame() {
@@ -29,66 +58,58 @@
     }
 
     function resetBoard() {
+        clearCpuTimeout();
+
         for (const cellId in gameState) {
             gameState[cellId].value = '';
-            const cellButton = document.getElementById(cellId) as HTMLButtonElement;
-            if (cellButton) {
-                cellButton.innerHTML = '';
-            }
-
         }
+
         setWinner(null);
     }
 
     $effect(() => {
-        if (winner.value !== null) return;
+        if (screen.value !== 'play') {
+            resetBoard();
+        }
+    });
 
-        if (turn === player2.mark && player2.cpu) {
-            const move = cpuMove(Object.values(gameState).map(cell => cell.value), player2.mark, player1.mark);
-            if (move !== null) {
-                setTimeout(() => {
-                    const cellId = `cell-${move + 1}`;
-                    const cellButton = document.getElementById(cellId) as HTMLButtonElement;
-                    if (cellButton) {
-                        cellButton.click();
-                    }
-                }, 500);
-            }
+    $effect(() => {
+        const boardValues = Object.values(gameState).map(cell => cell.value);
+
+        if (winner.value !== null) {
+            clearCpuTimeout();
+            return;
         }
 
-        let { mark, cells } = checkWin(Object.values(gameState).map(cell => cell.value));
+        const { mark, cells } = checkWin(boardValues);
         if (mark) {
+            clearCpuTimeout();
             setWinner(mark, cells);
             updateScore(mark);
             return;
         }
 
-        const isDraw = checkDraw(Object.values(gameState).map(cell => cell.value));
-        if (isDraw) {
+        if (checkDraw(boardValues)) {
+            clearCpuTimeout();
             setWinner('draw', []);
             updateScore('draw');
             return;
         }
 
+        if (turn === player2.mark && player2.cpu && cpuTimeout === null) {
+            const move = cpuMove(boardValues, player2.mark, player1.mark);
+            if (move !== null) {
+                cpuTimeout = setTimeout(() => {
+                    cpuTimeout = null;
+                    setCell(move, player2.mark as Mark);
+                }, 500);
+            }
+        }
+
     });
 
-
-    function handleClick(event: MouseEvent) {
-        const target = event.target as HTMLButtonElement;
-        const cellId = target.id;
-
-        if (gameState[cellId]?.value !== '') {
-            return;
-        }
-
-        if (turn === 'X') {
-            target.innerHTML = `<svg class="mark-x" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M15.002 1.147 32 18.145 48.998 1.147a3 3 0 0 1 4.243 0l9.612 9.612a3 3 0 0 1 0 4.243L45.855 32l16.998 16.998a3 3 0 0 1 0 4.243l-9.612 9.612a3 3 0 0 1-4.243 0L32 45.855 15.002 62.853a3 3 0 0 1-4.243 0L1.147 53.24a3 3 0 0 1 0-4.243L18.145 32 1.147 15.002a3 3 0 0 1 0-4.243l9.612-9.612a3 3 0 0 1 4.243 0Z" fill="#31C3BD" fill-rule="evenodd"/></svg>`;
-        } else if (turn === 'O') {
-            target.innerHTML = `<svg class="mark-o" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32C0,14.327,14.327,0,32,0Zm0,18.963c-7.2,0-13.037,5.837-13.037,13.037c0,7.2,5.837,13.037,13.037,13.037c7.2,0,13.037-5.837,13.037-13.037C45.037,24.8,39.2,18.963,32,18.963Z" fill="#F2B137"/></svg>`;
-        }
-        
-        gameState = { ...gameState, [cellId]: { ...gameState[cellId], value: turn } };
-        setTurn(turn === 'X' ? 'O' : 'X');
+    function handleClick(cellIndex: number) {
+        setCell(cellIndex, turn as Mark);
     }
 
 
@@ -111,11 +132,20 @@
     <div class="game-board">
         {#each Object.entries(gameState) as [cellId, cellData] (cellId)}
             <button class="cell {turn === 'X' ? 'X-turn' : 'O-turn'} {winner.cells.includes(cellData.index) ? 'winner-' + cellData.value : ''}" 
-                    id={cellId} 
+                    id={cellId}
                     data-cell={cellData.index}
-                    data-selected={cellData.value !== ''} 
-                    data-winner={cellData.value === winner.value} 
-                    aria-label={cellId} onclick={handleClick}>
+                    data-selected={cellData.value !== ''}
+                    data-winner={cellData.value === winner.value}
+                    aria-label={cellId}
+                    onclick={() => handleClick(cellData.index)}>
+                
+                {#if cellData.value === 'X'}
+                    <svg class="mark-x" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M15.002 1.147 32 18.145 48.998 1.147a3 3 0 0 1 4.243 0l9.612 9.612a3 3 0 0 1 0 4.243L45.855 32l16.998 16.998a3 3 0 0 1 0 4.243l-9.612 9.612a3 3 0 0 1-4.243 0L32 45.855 15.002 62.853a3 3 0 0 1-4.243 0L1.147 53.24a3 3 0 0 1 0-4.243L18.145 32 1.147 15.002a3 3 0 0 1 0-4.243l9.612-9.612a3 3 0 0 1 4.243 0Z" fill="#31C3BD" fill-rule="evenodd"/></svg>
+                {:else if cellData.value === 'O'}
+                    <svg class="mark-o" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32C0,14.327,14.327,0,32,0Zm0,18.963c-7.2,0-13.037,5.837-13.037,13.037c0,7.2,5.837,13.037,13.037,13.037c7.2,0,13.037-5.837,13.037-13.037C45.037,24.8,39.2,18.963,32,18.963Z" fill="#F2B137"/></svg>
+                {/if}
+
+               
             </button>
         {/each}
     </div>

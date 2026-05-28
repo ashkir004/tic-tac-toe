@@ -15,7 +15,6 @@ export function checkWin(board: string[]): { mark: string | null, cells: number[
     for (const condition of winConditions) {
         const [a, b, c] = condition;
         if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-            // return board[a];
             return { mark: board[a], cells: condition};
         }
     }
@@ -27,19 +26,6 @@ export function checkDraw(board: string[]): boolean {
     return board.every(cell => cell !== '');
 }
 
-// a cpu player that makes random moves
-// export function cpuMove(board: string[]): number {
-//     const emptyCells = board
-//         .map((cell, index) => cell === '' ? index : null)
-//         .filter(index => index !== null) as number[];
-
-//     if (emptyCells.length === 0) {
-//         return -1; // No moves left
-//     }
-
-//     const randomIndex = Math.floor(Math.random() * emptyCells.length);
-//     return emptyCells[randomIndex];
-// }
 
 // update the cpuMove function to make a winning move if available, otherwise block the opponent's winning move, and if neither is available, make a random move
 export function cpuMove(board: string[], cpuMark: string, playerMark: string): number {
