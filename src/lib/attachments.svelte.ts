@@ -58,21 +58,45 @@ export function trapFocusBoard(node: HTMLElement) {
         }
     }
 
-    // Move focus to overlay when it appears
+    // Move focus to overlay when it appears — save previous focus and restore on close
+    let previousFocus: Element | null = null;
     const observer = new MutationObserver(() => {
         const overlay = node.querySelector<HTMLElement>('.overlay.show');
         if (overlay) {
+            // Save the currently focused element so we can restore it when overlay closes
+            if (!previousFocus) {
+                previousFocus = document.activeElement as Element | null;
+            }
+
             const { firstElement } = updateFocus();
             if (firstElement) {
                 firstElement.focus();
             }
+        } else {
+            // Overlay closed — restore previous focus if possible
+            if (previousFocus) {
+                try {
+                    const el = previousFocus as HTMLElement;
+                    if (el && typeof el.focus === 'function' && document.contains(el)) {
+                        el.focus();
+                    } else {
+                        // fallback to first board control or reset button
+                        const fallback = node.querySelector<HTMLElement>('.game-board button:not([disabled])') || document.querySelector<HTMLElement>('.btn-reset');
+                        if (fallback) fallback.focus();
+                    }
+                } catch {
+                    const fallback = node.querySelector<HTMLElement>('.game-board button:not([disabled])') || document.querySelector<HTMLElement>('.btn-reset');
+                    if (fallback) fallback.focus();
+                }
+            }
+            previousFocus = null;
         }
     });
 
-    observer.observe(node, { 
-        subtree: true, 
-        attributes: true, 
-        attributeFilter: ['class'] 
+    observer.observe(node, {
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['class']
     });
 
     node.addEventListener('keydown', handleKeyDown);
