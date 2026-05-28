@@ -1,7 +1,8 @@
 <script lang="ts">
     import { screen, setScreen } from '$lib/shared.svelte';
     import { checkWin, checkDraw, cpuMove } from '$lib/tic-tac-toe';
-	import Overlay from './Overlay.svelte';
+	import Overlay from '$lib/components/Overlay.svelte';
+	import { trapFocusBoard } from '$lib/attachments.svelte';
 
     let { updateScore, resetScore, turn, setTurn, reset, setReset, player1, player2 } = $props();
 
@@ -90,9 +91,23 @@
         setTurn(turn === 'X' ? 'O' : 'X');
     }
 
+
 </script>
 
-<section class="game-board__container {screen.value !== 'play' ? 'hide' : ''}">
+<section class="game-board__container {screen.value !== 'play' ? 'hide' : ''}" use:trapFocusBoard>
+    
+    <Overlay 
+        winner={winner.value}
+        reset={reset} 
+        setReset={setReset} 
+        restartGame={restartGame} 
+        player1={player1}
+        resetBoard={resetBoard}
+        resetScore={resetScore}
+        setTurn={setTurn}
+        setScreen={setScreen}
+    /> 
+    
     <div class="game-board">
         {#each Object.entries(gameState) as [cellId, cellData] (cellId)}
             <button class="cell {turn === 'X' ? 'X-turn' : 'O-turn'} {winner.cells.includes(cellData.index) ? 'winner-' + cellData.value : ''}" 
@@ -105,17 +120,6 @@
         {/each}
     </div>
 
-    <Overlay 
-        winner={winner.value}
-        reset={reset} 
-        setReset={setReset} 
-        restartGame={restartGame} 
-        player1={player1}
-        resetBoard={resetBoard}
-        resetScore={resetScore}
-        setTurn={setTurn}
-        setScreen={setScreen}
-    /> 
 
 </section>
 

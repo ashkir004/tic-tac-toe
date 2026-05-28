@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+
     let { reset, 
             setReset, 
             restartGame, 
@@ -7,7 +8,7 @@
             resetScore,
             setTurn,
             setScreen,
-            resetBoard
+            resetBoard,
          } = $props();
 
     let restart = $derived(reset);
