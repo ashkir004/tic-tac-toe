@@ -4,6 +4,8 @@
 	import Overlay from '$lib/components/Overlay.svelte';
 	import { trapFocusBoard } from '$lib/attachments.svelte';
 
+    import { winner, setWinner } from '$lib/shared.svelte';
+
     let { updateScore, resetScore, turn, setTurn, reset, setReset, player1, player2 } = $props();
 
     type Mark = 'X' | 'O';
@@ -21,13 +23,15 @@
         'cell-9': { index: 8, value: '' }
     })
 
-    let winner: { value: string | null; cells: number[] } = $state({ value: null, cells: [] });
-    let cpuTimeout: ReturnType<typeof setTimeout> | null = null;
+    // let winner: { value: string | null; cells: number[] } = $state({ value: null, cells: [] });
+    
+    // function setWinner(value: string | null, cells: number[] = []) {
+    //     winner.value = value;
+    //     winner.cells = cells;
+    //     setReset(false);
+    // }
 
-    function setWinner(value: string | null, cells: number[] = []) {
-        winner.value = value;
-        winner.cells = cells;
-    }
+    let cpuTimeout: ReturnType<typeof setTimeout> | null = null;
 
     function clearCpuTimeout() {
         if (cpuTimeout) {

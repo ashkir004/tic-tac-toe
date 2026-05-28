@@ -5,23 +5,11 @@ export const screen = $state({
 
 export function setScreen(newScreen: string) {
     screen.value = newScreen;
-    // resetGame();
 }
 
-// export const reset = $state({ value: false });
+export const winner: { value: string | null; cells: number[] } = $state({ value: null, cells: [] });
 
-// export function resetGame() {
-//     reset.value = true;
-//     // setTurn('X');
-//     // setWinner(null);
-//     setTimeout(() => {
-//         reset.value = false;
-//     }, 0);
-// }
-
-export const rounds = $state({ value: 1 });
-
-export function nextRound() {
-    rounds.value += 1;
-    setScreen('play');
+export function setWinner(value: string | null, cells: number[] = []) {
+    winner.value = value;
+    winner.cells = cells;
 }
