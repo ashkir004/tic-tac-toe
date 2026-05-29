@@ -3,16 +3,22 @@
 	import GameBoard from '$lib/components/GameBoard.svelte';
     import Menu from '$lib/components/Menu.svelte';
 	import ScoreBoard from '$lib/components/ScoreBoard.svelte';
+    import { getSavedState } from '$lib/tic-tac-toe';
+
+
     import { screen } from '$lib/shared.svelte';
 
     import { winner } from '$lib/shared.svelte';
 
-    let player1 = $state({ mark: 'X', cpu: false });
-    let player2 = $state({ mark: 'O', cpu: false });
-
+    
     let reset = $state(false);
     let turn = $state('X');
-    let score: { player1: number; player2: number, draw: number } = $state({ player1: 0, player2: 0, draw: 0 });
+    // let score: { player1: number; player2: number, draw: number } = $state({ player1: 0, player2: 0, draw: 0 });
+    let player1 = $state(getSavedState('player1') || { mark: 'X', cpu: false });
+    let player2 = $state(getSavedState('player2') || { mark: 'O', cpu: false });
+    let score = $state(getSavedState('score') || { player1: 0, player2: 0, draw: 0 });
+
+
     
     function setReset(value: boolean) {
         reset = value;
@@ -53,6 +59,18 @@
         turn = 'X';
     }
 
+    $effect(() => {
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('gameState', JSON.stringify({
+                player1: { ...player1 },
+                player2: { ...player2 },
+                score: { ...score },
+                screen: { value: screen.value },
+            }));
+            console.log('Saved state in localStorage:', localStorage.getItem('gameState'));
+        }
+
+    });
 
 </script>
 
@@ -83,6 +101,7 @@
     <Menu 
         player1={player1}
         setCPU={setCPU}
+        setTurn={setTurn}
         setPlayer1Mark={setPlayer1Mark} />
 
     <GameBoard

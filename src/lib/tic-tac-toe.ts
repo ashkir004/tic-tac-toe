@@ -64,3 +64,19 @@ export function cpuMove(board: string[], cpuMark: string, playerMark: string): n
     const randomIndex = Math.floor(Math.random() * emptyCells.length);
     return emptyCells[randomIndex];
 }
+
+export function getSavedState(whichState: 'score' | 'player1' | 'player2' | 'screen' = 'screen') {
+    if (typeof window !== 'undefined') {
+        const saved = localStorage.getItem('gameState');
+        if (saved) {
+            try {
+                const gameState = JSON.parse(saved);
+                return gameState[whichState] ?? null;
+            } catch (e) {
+                console.error('Error parsing saved game state:', e);
+                return null;
+            }
+        }
+    }
+    return null;
+}

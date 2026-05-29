@@ -1,7 +1,11 @@
 
-export const screen = $state({
-    value: 'menu',
-});
+// export const screen = $state({
+//     value: 'menu',
+// });
+
+import { getSavedState } from "./tic-tac-toe";
+
+export const screen = $state(getSavedState('screen') || { value: 'menu' });
 
 export function setScreen(newScreen: string) {
     screen.value = newScreen;
