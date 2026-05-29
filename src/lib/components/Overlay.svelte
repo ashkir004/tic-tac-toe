@@ -17,9 +17,9 @@
 
 <div class="overlay {restart || wonBy !== null ? 'show' : 'hide'} ">
 
-    {#if wonBy }
+    {#if wonBy && wonBy !== 'draw'}
         <h1 class="overaly__title text-preset-5-bold">
-            { winner === player1.mark ? 'You Won!' : winner === 'draw' ? '' : 'Oh No, You Lost...' }
+            { winner === player1.mark ? 'You Won!' : 'Oh No, You Lost...' }
         </h1>
     {/if}
 

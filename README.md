@@ -1,42 +1,15 @@
 
-- New Game Menu
-    - Header
-        - Logo
-    - Player Mark
-        - Mark Options (X or O)
-    - Game Mode
-        - New Game vs Cpu
-        - New Game vs player
+# Tic-Tac-Toe Game
 
+## Brief
+Your challenge is to build out this Tic Tac Toe game and get it looking as close to the design as possible.
 
-- Game (Solo) / Multiplayer
-    - Header
-        - Logo
-        - TurnIndicator
-        - Reset 
-    - Game Board
-    - Scoreboard
-        - Player Score or X (p1)
-        - Ties
-        - CPU Score or O ( p2)
+You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
 
-- Game (Solo) Player Win / Loss / Tied / Restart
-    - Modal Container
-        - Win or Loss Message
-            - "you won/lost" or "player 1/2 wins"
-            - X or O takes the Round
-            - Quit
-            - Next Round
-        - Tied
-            - "Round tied"
-            - Quit
-            - Next Round
-        - Restart
-            - No, Cancel
-            - Yes, Restart
+Your users should be able to:
 
-
-## Architecture
-- Use **universal reactivity** to share screen global state in order to conditionally render the different screen states of the game.
-
-## For showing up
+- View the optimal layout for the game depending on their device's screen size
+- See hover states for all interactive elements on the page
+- Play the game either solo vs the computer or multiplayer against another person
+- **Bonus 1**: Save the game state in the browser so that it’s preserved if the player refreshes their browser
+- **Bonus 2**: Instead of having the computer randomly make their moves, try making it clever so it’s proactive in blocking your moves and trying to win
