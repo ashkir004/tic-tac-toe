@@ -44,7 +44,7 @@
 				setTurn('X');
 				setScreen('play');
 			}}
-			class="btn new-game__control vs-cpu text-preset-4">New Game (vs CPU)</button
+			class="btn new-game__control vs-cpu text-preset-4 text-preset-3-md">New Game (vs CPU)</button
 		>
 		<button
 			onclick={() => {
@@ -52,7 +52,7 @@
 				setTurn('X');
 				setScreen('play');
 			}}
-			class="btn new-game__control vs-player text-preset-4">New Game (vs Player)</button
+			class="btn new-game__control vs-player text-preset-4 text-preset-3-md">New Game (vs Player)</button
 		>
 	</section>
 </section>
@@ -94,7 +94,7 @@
 
 	.new-game__option {
 		width: var(--s-1200);
-		height: var(--s-500);
+		height: var(--s-675);
 		cursor: pointer;
 		border: none;
 		display: flex;
@@ -107,8 +107,8 @@
 
 	.new-game__option .option-x,
 	.new-game__option .option-o {
-		width: var(--s-300);
-		height: var(--s-300);
+		width: var(--s-400);
+		height: var(--s-400);
 		fill: var(--slate-300);
 		background-color: var(--slate-900);
 	}
@@ -157,5 +157,20 @@
 
 	.hide {
 		display: none;
+	}
+
+	@media (min-width: 48rem) {
+
+		.new-game {
+			gap: var(--s-500);
+		}
+
+		.new-game__option {
+			width: var(--s-2400);
+		}
+
+		.new-game__controls {
+			gap: var(--s-250);
+		}
 	}
 </style>

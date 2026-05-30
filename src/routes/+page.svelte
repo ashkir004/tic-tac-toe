@@ -70,11 +70,12 @@
 	});
 </script>
 
+<div class="app">
 <main>
 	<header>
 		<img src={logo} alt="XO logo" class="logo" />
 		<div class="controls__container {screen.value === 'menu' ? 'hide' : ''}">
-			<button class="btn btn-turn text-preset-4">
+			<button class="btn btn-turn text-preset-5-bold text-preset-4-md">
 				{#if turn === 'X'}
 					<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"
 						><path
@@ -117,6 +118,7 @@
 
 	<ScoreBoard {player1} {player2} {score} />
 </main>
+</div>
 
 <style>
 	.hide {

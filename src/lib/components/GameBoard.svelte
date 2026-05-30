@@ -23,14 +23,6 @@
 		'cell-9': { index: 8, value: '' }
 	});
 
-	// let winner: { value: string | null; cells: number[] } = $state({ value: null, cells: [] });
-
-	// function setWinner(value: string | null, cells: number[] = []) {
-	//     winner.value = value;
-	//     winner.cells = cells;
-	//     setReset(false);
-	// }
-
 	let cpuTimeout: ReturnType<typeof setTimeout> | null = null;
 
 	function clearCpuTimeout() {
@@ -206,9 +198,16 @@
 	}
 
 	@media (min-width: 48rem) {
+
+		.game-board {
+			display: grid;
+			grid-template-columns: repeat(3, var(--s-1700));
+			grid-template-rows: repeat(3, var(--s-1700));
+		}
+
 		.cell {
-			width: var(--s-1300);
-			height: var(--s-1300);
+			width: var(--s-1700);
+			height: var(--s-1700);
 		}
 	}
 </style>

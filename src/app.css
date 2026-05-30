@@ -34,6 +34,7 @@
 	--s-500: calc(40 / 16 * 1rem);
 	--s-600: calc(48 / 16 * 1rem);
 	--s-650: calc(52 / 16 * 1rem);
+	--s-675: calc(54 / 16 * 1rem);
 	--s-700: calc(56 / 16 * 1rem);
 	--s-800: calc(64 / 16 * 1rem);
 	--s-900: calc(72 / 16 * 1rem);
@@ -42,6 +43,9 @@
 	--s-1200: calc(96 / 16 * 1rem);
 	--s-1300: calc(104 / 16 * 1rem);
 	--s-1400: calc(112 / 16 * 1rem);
+	--s-1500: calc(120 / 16 * 1rem);
+	--s-1700: calc(140 / 16 * 1rem);
+	--s-2400: calc(198 / 16 * 1rem);
 
 	--radius-0: 0;
 	--radius-4: calc(4 / 16 * 1rem);
@@ -134,13 +138,20 @@ body {
 	letter-spacing: var(--letter-spacing-xs);
 }
 
+.app {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
 main {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	gap: var(--s-400);
-	height: 100vh;
 }
 
 header {
@@ -148,6 +159,7 @@ header {
 	flex-direction: row;
 	align-items: center;
 	gap: var(--s-800);
+	width: 100%;
 }
 
 .logo {
@@ -160,8 +172,9 @@ header {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	gap: var(--s-300);
-	width: 100%;
+	justify-content: space-between;
+	gap: var(--s-800);
+	flex-grow: 1;
 }
 
 .btn {
@@ -184,8 +197,7 @@ header {
 	text-transform: uppercase;
 }
 
-.btn-turn svg,
-.btn-reset svg {
+.btn-turn svg {
 	width: var(--s-200);
 	height: var(--s-200);
 	fill: var(--slate-300);
@@ -233,9 +245,67 @@ header {
 }
 
 @media (min-width: 48rem) {
+	
+	.app {
+		gap: var(--s-500);
+	}
+	
 	.cell .mark-x,
 	.cell .mark-o {
-		width: var(--s-600);
-		height: var(--s-600);
+		width: var(--s-800);
+		height: var(--s-800);
 	}
+
+	.btn-reset {
+		width: var(--s-650);
+		height: var(--s-650);
+	}
+
+	.btn-turn {
+		width: var(--s-1700);
+		height: var(--s-650);
+		margin: auto;
+	}
+
+	.text-preset-1-md {
+		font-family: 'Outfit', sans-serif;
+		font-weight: var(--bold);
+		font-size: var(--font-xxl);
+		line-height: var(--line-height-xl);
+		letter-spacing: var(--letter-spacing-xxl);
+	}
+	
+	.text-preset-2-md {
+		font-family: 'Outfit', sans-serif;
+		font-weight: var(--bold);
+		font-size: var(--font-xl);
+		line-height: var(--line-height-lg);
+		letter-spacing: var(--letter-spacing-lg);
+	}
+
+	.text-preset-3-md {
+		font-family: 'Outfit', sans-serif;
+		font-weight: var(--bold);
+		font-size: var(--font-lg);
+		line-height: var(--line-height-lg);
+		letter-spacing: var(--letter-spacing-lg);
+	}
+
+	.text-preset-4-md {
+		font-family: 'Outfit', sans-serif;
+		font-weight: var(--bold);
+		font-size: var(--font-md);
+		line-height: var(--line-height-lg);
+		letter-spacing: var(--letter-spacing-lg);
+	}
+
+	.text-preset-5-bold-md {
+		font-family: 'Outfit', sans-serif;
+		font-weight: var(--bold);
+		font-size: var(--font-xs);
+		line-height: var(--line-height-xl);
+		letter-spacing: var(--letter-spacing-xs);
+	}
+
+	
 }

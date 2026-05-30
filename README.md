@@ -13,3 +13,9 @@ Your users should be able to:
 - Play the game either solo vs the computer or multiplayer against another person
 - **Bonus 1**: Save the game state in the browser so that it’s preserved if the player refreshes their browser
 - **Bonus 2**: Instead of having the computer randomly make their moves, try making it clever so it’s proactive in blocking your moves and trying to win
+
+## Links
+
+- Live Site: [tic-tac-toe](https://tic-tac-toe-ashkir004.netlify.app/)
+
+- Repository; [github](https://github.com/ashkir004/tic-tac-toe)

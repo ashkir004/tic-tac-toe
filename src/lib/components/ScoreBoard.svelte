@@ -35,17 +35,17 @@
 </script>
 
 <section class="scoreboard {screen.value !== 'play' ? 'hide' : ''}">
-	<div class="player-score p1 text-preset-6">
+	<div class="player-score p1 text-preset-6 text-preset-5-bold">
 		X({getPlayerLabel(player1)})
-		<p class="text-preset-3">{player1.mark === 'X' ? score.player1 : score.player2}</p>
+		<p class="text-preset-3 text-preset-2-md">{player1.mark === 'X' ? score.player1 : score.player2}</p>
 	</div>
-	<div class="tie-score text-preset-6">
+	<div class="tie-score text-preset-6 text-preset-5-bold">
 		Ties
-		<p class="text-preset-3">{score.draw}</p>
+		<p class="text-preset-3 text-preset-2-md">{score.draw}</p>
 	</div>
-	<div class="player-score p2 text-preset-6">
+	<div class="player-score p2 text-preset-6 text-preset-5-bold">
 		O({getPlayerLabel(player2)})
-		<p class="text-preset-3">{player2.mark === 'X' ? score.player1 : score.player2}</p>
+		<p class="text-preset-3 text-preset-2-md">{player2.mark === 'X' ? score.player1 : score.player2}</p>
 	</div>
 </section>
 
@@ -54,8 +54,9 @@
 		display: flex;
 		flex-direction: row;
 		gap: var(--s-250);
-		justify-content: center;
+		justify-content: space-between;
 		align-items: center;
+		width: 100%;
 	}
 
 	.player-score,
@@ -87,5 +88,14 @@
 
 	.hide {
 		display: none;
+	}
+
+	@media (min-width: 48rem) {
+
+		.player-score,
+		.tie-score {
+			width: var(--s-1700);
+			height: var(--s-900);
+		}
 	}
 </style>
