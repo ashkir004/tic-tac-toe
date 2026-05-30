@@ -11,8 +11,8 @@
 
 	let reset = $state(false);
 	let turn = $state('X');
-	let player1 = $state(getSavedState('player1') || { mark: 'X', cpu: false });
-	let player2 = $state(getSavedState('player2') || { mark: 'O', cpu: false });
+	let player1 = $state(getSavedState('player1') || { mark: 'O', cpu: false });
+	let player2 = $state(getSavedState('player2') || { mark: 'X', cpu: false });
 	let score = $state(getSavedState('score') || { player1: 0, player2: 0, draw: 0 });
 
 	function setReset(value: boolean) {
@@ -65,7 +65,7 @@
 					screen: { value: screen.value }
 				})
 			);
-			console.log('Saved state in localStorage:', localStorage.getItem('gameState'));
+			// console.log('Saved state in localStorage:', localStorage.getItem('gameState'));
 		}
 	});
 </script>
