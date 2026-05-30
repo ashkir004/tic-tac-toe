@@ -21,7 +21,9 @@
 					>
 				</button>
 				<button
-					onclick={() => setPlayer1Mark('O')}
+					onclick={() => {
+						setPlayer1Mark('O');
+					}}
 					class="new-game__option new-game__option-o {player1.mark === 'O' ? 'active' : ''}"
 					aria-label="option O"
 				>
@@ -39,6 +41,7 @@
 		<button
 			onclick={() => {
 				setCPU(true);
+				setTurn('X');
 				setScreen('play');
 			}}
 			class="btn new-game__control vs-cpu text-preset-4">New Game (vs CPU)</button

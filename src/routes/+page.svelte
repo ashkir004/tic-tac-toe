@@ -51,7 +51,7 @@
 
 	function resetScore() {
 		score = { player1: 0, player2: 0, draw: 0 };
-		turn = 'X';
+		setTurn('X');
 	}
 
 	$effect(() => {
