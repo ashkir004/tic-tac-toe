@@ -115,6 +115,7 @@
 		{setReset}
 		{restartGame}
 		{player1}
+		{player2}
 		{resetBoard}
 		{resetScore}
 		{setTurn}
@@ -131,7 +132,6 @@
 				data-cell={cellData.index}
 				data-selected={cellData.value !== ''}
 				data-winner={cellData.value === winner.value}
-				aria-label={cellId}
 				onclick={() => handleClick(cellData.index)}
 			>
 				{#if cellData.value === 'X'}

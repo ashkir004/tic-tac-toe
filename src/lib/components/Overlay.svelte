@@ -5,6 +5,7 @@
 		restartGame,
 		winner,
 		player1,
+		player2,
 		resetScore,
 		setTurn,
 		setScreen,
@@ -15,10 +16,11 @@
 	let wonBy = $derived(winner);
 </script>
 
-<div class="overlay {restart || wonBy !== null ? 'show' : 'hide'} ">
+<div class="overlay {restart || wonBy !== null ? 'show' : 'hide'} " role="alertdialog" aria-modal="true">
+	
 	{#if wonBy && wonBy !== 'draw'}
-		<h1 class="overaly__title text-preset-5-bold text-preset-4-md">
-			{winner === player1.mark ? 'You Won!' : 'Oh No, You Lost...'}
+		<h1 class="overlay__title text-preset-5-bold text-preset-4-md">
+			{(player1.cpu || player2.cpu) ? (winner === player1.mark ? 'You Won!' : 'Oh No, You Lost...') : (winner === player1.mark ? 'Player 1 Wins!' : 'Player 2 Wins!')}
 		</h1>
 	{/if}
 
