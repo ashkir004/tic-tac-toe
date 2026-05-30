@@ -49,7 +49,11 @@
 	{#if wonBy}
 		<div class="overlay__content">
 			{#if wonBy === 'X'}
-				<p class="overlay__message text-preset-2 text-preset-1-md {wonBy === 'X' ? 'winner-' + wonBy : ''}">
+				<p
+					class="overlay__message text-preset-2 text-preset-1-md {wonBy === 'X'
+						? 'winner-' + wonBy
+						: ''}"
+				>
 					<svg class="mark-x" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"
 						><path
 							d="M15.002 1.147 32 18.145 48.998 1.147a3 3 0 0 1 4.243 0l9.612 9.612a3 3 0 0 1 0 4.243L45.855 32l16.998 16.998a3 3 0 0 1 0 4.243l-9.612 9.612a3 3 0 0 1-4.243 0L32 45.855 15.002 62.853a3 3 0 0 1-4.243 0L1.147 53.24a3 3 0 0 1 0-4.243L18.145 32 1.147 15.002a3 3 0 0 1 0-4.243l9.612-9.612a3 3 0 0 1 4.243 0Z"
@@ -60,7 +64,11 @@
 					takes the round
 				</p>
 			{:else if wonBy === 'O'}
-				<p class="overlay__message text-preset-2 text-preset-1-md {wonBy === 'O' ? 'winner-' + wonBy : ''}">
+				<p
+					class="overlay__message text-preset-2 text-preset-1-md {wonBy === 'O'
+						? 'winner-' + wonBy
+						: ''}"
+				>
 					<svg class="mark-o" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"
 						><path
 							d="M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32C0,14.327,14.327,0,32,0Zm0,18.963c-7.2,0-13.037,5.837-13.037,13.037c0,7.2,5.837,13.037,13.037,13.037c7.2,0,13.037-5.837,13.037-13.037C45.037,24.8,39.2,18.963,32,18.963Z"
@@ -180,7 +188,7 @@
 		background-color: var(--amber-300);
 		box-shadow: 0px 5px 0px 0px color-mix(in srgb, var(--amber-300) 50%, var(--neutral-950) 50%);
 	}
-	
+
 	.hide {
 		display: none;
 	}
@@ -190,7 +198,6 @@
 	}
 
 	@media (min-width: 48rem) {
-
 		.overlay__message {
 			gap: var(--s-300);
 		}

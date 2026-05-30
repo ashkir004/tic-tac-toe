@@ -198,7 +198,6 @@
 	}
 
 	@media (min-width: 48rem) {
-
 		.game-board {
 			display: grid;
 			grid-template-columns: repeat(3, var(--s-1700));

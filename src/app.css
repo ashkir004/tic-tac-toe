@@ -178,7 +178,8 @@ header {
 	flex-grow: 1;
 }
 
-.btn, .turn-label {
+.btn,
+.turn-label {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -260,15 +261,18 @@ header {
 }
 
 @media (min-width: 48rem) {
-	
 	.app {
 		gap: var(--s-500);
 	}
-	
+
 	.cell .mark-x,
 	.cell .mark-o {
 		width: var(--s-800);
 		height: var(--s-800);
+	}
+
+	[data-selected='false'].X-turn:hover, [data-selected='false'].O-turn:hover {
+		background-size: var(--s-800) var(--s-800);
 	}
 
 	.btn-reset {
@@ -289,7 +293,7 @@ header {
 		line-height: var(--line-height-xl);
 		letter-spacing: var(--letter-spacing-xxl);
 	}
-	
+
 	.text-preset-2-md {
 		font-family: 'Outfit', sans-serif;
 		font-weight: var(--bold);
@@ -321,6 +325,4 @@ header {
 		line-height: var(--line-height-xl);
 		letter-spacing: var(--letter-spacing-xs);
 	}
-
-	
 }

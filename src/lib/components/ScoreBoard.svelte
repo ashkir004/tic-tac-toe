@@ -37,7 +37,9 @@
 <section class="scoreboard {screen.value !== 'play' ? 'hide' : ''}">
 	<div class="player-score p1 text-preset-6 text-preset-5-bold">
 		X({getPlayerLabel(player1)})
-		<p class="text-preset-3 text-preset-2-md">{player1.mark === 'X' ? score.player1 : score.player2}</p>
+		<p class="text-preset-3 text-preset-2-md">
+			{player1.mark === 'X' ? score.player1 : score.player2}
+		</p>
 	</div>
 	<div class="tie-score text-preset-6 text-preset-5-bold">
 		Ties
@@ -45,7 +47,9 @@
 	</div>
 	<div class="player-score p2 text-preset-6 text-preset-5-bold">
 		O({getPlayerLabel(player2)})
-		<p class="text-preset-3 text-preset-2-md">{player2.mark === 'X' ? score.player1 : score.player2}</p>
+		<p class="text-preset-3 text-preset-2-md">
+			{player2.mark === 'X' ? score.player1 : score.player2}
+		</p>
 	</div>
 </section>
 
@@ -91,7 +95,6 @@
 	}
 
 	@media (min-width: 48rem) {
-
 		.player-score,
 		.tie-score {
 			width: var(--s-1700);

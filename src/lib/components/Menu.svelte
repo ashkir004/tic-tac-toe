@@ -52,7 +52,8 @@
 				setTurn('X');
 				setScreen('play');
 			}}
-			class="btn new-game__control vs-player text-preset-4 text-preset-3-md">New Game (vs Player)</button
+			class="btn new-game__control vs-player text-preset-4 text-preset-3-md"
+			>New Game (vs Player)</button
 		>
 	</section>
 </section>
@@ -153,7 +154,7 @@
 	.new-game__control:hover {
 		background-color: var(--amber-300);
 		box-shadow: 0px 8px 0px 0px color-mix(in srgb, var(--neutral-950) 20%, var(--amber-300) 80%);
-	}	
+	}
 
 	.new-game__control.vs-player {
 		background-color: var(--teal-400);
@@ -170,7 +171,6 @@
 	}
 
 	@media (min-width: 48rem) {
-
 		.new-game {
 			gap: var(--s-500);
 		}
