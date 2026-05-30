@@ -127,7 +127,7 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: center;
-		gap: var(--s-100);
+		gap: var(--s-200);
 	}
 
 	.overlay__message svg.mark-x {
@@ -171,11 +171,34 @@
 		box-shadow: 0px 5px 0px 0px color-mix(in srgb, var(--amber-400) 50%, var(--neutral-950) 50%);
 	}
 
+	.overlay__controls .quit:hover {
+		background-color: var(--slate-100);
+		box-shadow: 0px 5px 0px 0px color-mix(in srgb, var(--slate-100) 50%, var(--neutral-950) 50%);
+	}
+
+	.overlay__controls .next-round:hover {
+		background-color: var(--amber-300);
+		box-shadow: 0px 5px 0px 0px color-mix(in srgb, var(--amber-300) 50%, var(--neutral-950) 50%);
+	}
+	
 	.hide {
 		display: none;
 	}
 
 	.show {
 		display: flex;
+	}
+
+	@media (min-width: 48rem) {
+
+		.overlay__message {
+			gap: var(--s-300);
+		}
+
+		.overlay__message .mark-x,
+		.overlay__message .mark-o {
+			width: var(--s-800);
+			height: var(--s-800);
+		}
 	}
 </style>

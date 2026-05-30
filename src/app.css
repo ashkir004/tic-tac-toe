@@ -23,6 +23,7 @@
 	--teal-300: #65e9e4;
 
 	--s-0: 0;
+	--s-25: calc(2 / 16 * 1rem);
 	--s-50: calc(4 / 16 * 1rem);
 	--s-100: calc(8 / 16 * 1rem);
 	--s-150: calc(12 / 16 * 1rem);
@@ -177,7 +178,7 @@ header {
 	flex-grow: 1;
 }
 
-.btn {
+.btn, .turn-label {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -186,7 +187,7 @@ header {
 	cursor: pointer;
 }
 
-.btn-turn {
+.turn-label {
 	padding: var(--s-150) var(--s-300);
 	gap: var(--s-100);
 	background-color: var(--slate-800);
@@ -197,7 +198,7 @@ header {
 	text-transform: uppercase;
 }
 
-.btn-turn svg {
+.turn-label svg {
 	width: var(--s-200);
 	height: var(--s-200);
 	fill: var(--slate-300);
@@ -216,6 +217,15 @@ header {
 	height: var(--s-250);
 	fill: var(--slate-800);
 	background-color: var(--slate-300);
+}
+
+.btn-reset:hover {
+	background-color: var(--slate-100);
+	box-shadow: 0px 5px 0px 0px color-mix(in srgb, var(--slate-100) 50%, var(--neutral-950) 50%);
+}
+
+.btn-reset:hover svg {
+	background-color: var(--slate-100);
 }
 
 .cell .mark-x,
@@ -244,6 +254,11 @@ header {
 	fill: var(--slate-900);
 }
 
+*:focus-visible {
+	outline: var(--s-25) solid var(--teal-400);
+	outline-offset: var(--s-25);
+}
+
 @media (min-width: 48rem) {
 	
 	.app {
@@ -261,7 +276,7 @@ header {
 		height: var(--s-650);
 	}
 
-	.btn-turn {
+	.turn-label {
 		width: var(--s-1700);
 		height: var(--s-650);
 		margin: auto;

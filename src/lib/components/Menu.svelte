@@ -150,9 +150,19 @@
 		box-shadow: 0px 8px 0px 0px color-mix(in srgb, var(--neutral-950) 20%, var(--amber-400) 80%);
 	}
 
+	.new-game__control:hover {
+		background-color: var(--amber-300);
+		box-shadow: 0px 8px 0px 0px color-mix(in srgb, var(--neutral-950) 20%, var(--amber-300) 80%);
+	}	
+
 	.new-game__control.vs-player {
 		background-color: var(--teal-400);
 		box-shadow: 0px 8px 0px 0px color-mix(in srgb, var(--neutral-950) 20%, var(--teal-400) 80%);
+	}
+
+	.new-game__control.vs-player:hover {
+		background-color: var(--teal-300);
+		box-shadow: 0px 8px 0px 0px color-mix(in srgb, var(--neutral-950) 20%, var(--teal-300) 80%);
 	}
 
 	.hide {
