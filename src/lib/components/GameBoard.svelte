@@ -132,6 +132,7 @@
 				data-cell={cellData.index}
 				data-selected={cellData.value !== ''}
 				data-winner={cellData.value === winner.value}
+				aria-label={cellData.value !== '' ? `Cell ${cellData.index + 1} with ${cellData.value}` : `Empty cell ${cellData.index + 1}`}
 				onclick={() => handleClick(cellData.index)}
 			>
 				{#if cellData.value === 'X'}

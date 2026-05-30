@@ -16,17 +16,17 @@
 	let wonBy = $derived(winner);
 </script>
 
-<div class="overlay {restart || wonBy !== null ? 'show' : 'hide'} " role="alertdialog" aria-modal="true">
+<div class="overlay {restart || wonBy !== null ? 'show' : 'hide'} " role="alertdialog" aria-modal="true" aria-labelledby="overlay-title" aria-describedby="overlay-message">
 	
 	{#if wonBy && wonBy !== 'draw'}
-		<h1 class="overlay__title text-preset-5-bold text-preset-4-md">
+		<h1 class="overlay__title text-preset-5-bold text-preset-4-md" id="overlay-title">
 			{(player1.cpu || player2.cpu) ? (winner === player1.mark ? 'You Won!' : 'Oh No, You Lost...') : (winner === player1.mark ? 'Player 1 Wins!' : 'Player 2 Wins!')}
 		</h1>
 	{/if}
 
 	{#if restart}
 		<div class="overlay__content">
-			<p class="overlay__message text-preset-2">Restart Game</p>
+			<p class="overlay__message text-preset-2" id="overlay-message">Restart Game</p>
 			<div class="overlay__controls">
 				<button
 					class="quit text-preset-4"
@@ -51,7 +51,7 @@
 	{#if wonBy}
 		<div class="overlay__content">
 			{#if wonBy === 'X'}
-				<p
+				<p	id="overlay-message"
 					class="overlay__message text-preset-2 text-preset-1-md {wonBy === 'X'
 						? 'winner-' + wonBy
 						: ''}"
@@ -66,7 +66,7 @@
 					takes the round
 				</p>
 			{:else if wonBy === 'O'}
-				<p
+				<p	id="overlay-message"
 					class="overlay__message text-preset-2 text-preset-1-md {wonBy === 'O'
 						? 'winner-' + wonBy
 						: ''}"
@@ -80,7 +80,7 @@
 					takes the round
 				</p>
 			{:else if wonBy === 'draw'}
-				<p class="overlay__message text-preset-2 text-preset-1-md">Round Tied</p>
+				<p class="overlay__message text-preset-2 text-preset-1-md" id="overlay-message">Round Tied</p>
 			{/if}
 			<div class="overlay__controls">
 				<button
