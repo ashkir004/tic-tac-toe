@@ -165,16 +165,19 @@
 
 	.game-board {
 		display: grid;
-		grid-template-columns: repeat(3, var(--s-1200));
-		grid-template-rows: repeat(3, var(--s-1200));
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(3, 1fr);
+		width: clamp(20.5rem, 65vmin, 28.75rem);
+		aspect-ratio: 1;
+
 		gap: var(--s-250);
 		grid-column: 1 / -1;
 		grid-row: 1 / -1;
 	}
 
 	.cell {
-		width: var(--s-1200);
-		height: var(--s-1200);
+		width: auto;
+		height: auto;
 		background-color: var(--slate-800);
 		border: none;
 		display: flex;
@@ -196,18 +199,5 @@
 
 	.hide {
 		display: none;
-	}
-
-	@media (min-width: 48rem) {
-		.game-board {
-			display: grid;
-			grid-template-columns: repeat(3, var(--s-1700));
-			grid-template-rows: repeat(3, var(--s-1700));
-		}
-
-		.cell {
-			width: var(--s-1700);
-			height: var(--s-1700);
-		}
 	}
 </style>

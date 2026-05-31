@@ -73,8 +73,9 @@
 <div class="app">
 	<main>
 		<header>
-			<img src={logo} alt="XO logo" class="logo" />
+			<img src={logo} alt="XO logo" class="logo {screen.value === 'menu' ? 'show' : 'hide'}" />
 			<div class="controls__container {screen.value === 'menu' ? 'hide' : ''}">
+				<img src={logo} alt="XO logo" class="logo" />
 				<p class="turn-label text-preset-5-bold text-preset-4-md">
 					{#if turn === 'X'}
 						<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"
@@ -112,6 +113,7 @@
 				</button>
 			</div>
 		</header>
+		<h1 class="sr-only">Tic Tac Toe Game</h1>
 
 		<Menu {player1} {setCPU} {setTurn} {setPlayer1Mark} />
 
@@ -124,5 +126,21 @@
 <style>
 	.hide {
 		display: none;
+	}
+
+	.show {
+		display: block;
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
 	}
 </style>
